@@ -65,11 +65,30 @@ protected:
 };
 
 
+
+
+template <typename T>
+class Compound : public Shape{
+public:
+	explicit Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
+
+	virtual ~Compound() = default;
+
+protected:
+	virtual point_t getBoundingBox() const override;
+	virtual std::string generatePostScript(point_t center) const override;
+
+protected:
+	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
+
+};
+
+
 // *********************************************************************
 // Layered Class
 // *********************************************************************
 
-class Layered : public Shape {
+class Layered : public Compound {
 public:
 	explicit Layered(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
 
@@ -82,7 +101,6 @@ protected:
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
 };
-
 
 // *********************************************************************
 // Vertical Class
