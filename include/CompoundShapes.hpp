@@ -67,7 +67,6 @@ protected:
 
 
 
-template <typename T>
 class Compound : public Shape{
 public:
 	explicit Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
@@ -96,7 +95,7 @@ public:
 
 protected:
 	point_t getBoundingBox() const override;
-	std::string generatePostScript(point_t center) const override;
+	std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
@@ -106,15 +105,15 @@ protected:
 // Vertical Class
 // *********************************************************************
 
-class Vertical : public Shape {
+class Vertical : public Compound {
 public:
 	explicit Vertical(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
 
 	virtual ~Vertical() = default;
 
 protected:
-	point_t getBoundingBox() const override;
-	std::string generatePostScript(point_t center) const override;
+	point_t getBoundingBox() const;
+	std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
@@ -125,15 +124,15 @@ protected:
 // Horizontal Class
 // *********************************************************************
 
-class Horizontal : public Shape {
+class Horizontal : public Compound {
 public:
 	explicit Horizontal(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
 
 	virtual ~Horizontal() = default;
 
 protected:
-	point_t getBoundingBox() const override;
-	std::string generatePostScript(point_t center) const override;
+	point_t getBoundingBox() const;
+	std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;

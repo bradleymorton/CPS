@@ -123,6 +123,10 @@ std::string Layered::generatePostScript(point_t center) const
 	return output;
 }
 
+Compound::Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences)
+: _shapeReferences(std::move(shapeReferences))
+{}
+
 
 // *********************************************************************
 // Vertical Class
