@@ -81,7 +81,53 @@ Layered::Layered(std::vector<std::reference_wrapper<const Shape>> shapeReference
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
-point_t Layered::getBoundingBox() const
+// point_t Layered::getBoundingBox() const
+// {
+// 	point_t result = {0.0, 0.0};
+
+// 	for (auto shapeReference : _shapeReferences)
+// 	{
+// 		// To use list of Shapes needed reference_wrapper<const Shape>
+// 		// which is dereferenced with get()
+// 		const Shape & shape = shapeReference.get();
+
+// 		// To access other Shapes' protected getBoundingBox need
+// 		// to pass a ShapeKey to the public getBoundingBox
+// 		auto shapeBoundingBox = shape.getBoundingBox({});
+
+// 		if (shapeBoundingBox.x > result.x)
+// 			result.x = shapeBoundingBox.x;
+
+// 		if (shapeBoundingBox.y > result.y)
+// 			result.y = shapeBoundingBox.y;
+// 	}
+
+// 	return result;
+// }
+
+// std::string Layered::generatePostScript(point_t center) const
+// {
+// 	std::string output;
+
+// 	for (auto shapeReference : _shapeReferences)
+// 	{
+// 		// To use list of Shapes needed reference_wrapper<const Shape>
+// 		// which is dereferenced with get()
+// 		const Shape & shape = shapeReference.get();
+
+// 		// To access other Shapes' protected getBoundingBox need
+// 		// to pass a ShapeKey to the public getBoundingBox
+// 		output += shape.generatePostScript(center, {});
+// 	}
+
+// 	return output;
+// }
+
+// Compound::Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences)
+// : _shapeReferences(std::move(shapeReferences))
+// {}
+
+point_t Compound::getBoundingBox() const
 {
 	point_t result = {0.0, 0.0};
 
@@ -95,17 +141,16 @@ point_t Layered::getBoundingBox() const
 		// to pass a ShapeKey to the public getBoundingBox
 		auto shapeBoundingBox = shape.getBoundingBox({});
 
-		if (shapeBoundingBox.x > result.x)
-			result.x = shapeBoundingBox.x;
+		// Output the largest width
+		result.x += shapeBoundingBox.x;
 
-		if (shapeBoundingBox.y > result.y)
-			result.y = shapeBoundingBox.y;
+ 		result.y += shapeBoundingBox.y;
 	}
 
 	return result;
 }
 
-std::string Layered::generatePostScript(point_t center) const
+std::string Compound::generatePostScript(point_t center) const
 {
 	std::string output;
 
@@ -123,10 +168,6 @@ std::string Layered::generatePostScript(point_t center) const
 	return output;
 }
 
-Compound::Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences)
-: _shapeReferences(std::move(shapeReferences))
-{}
-
 
 // *********************************************************************
 // Vertical Class
@@ -137,57 +178,57 @@ Vertical::Vertical(std::vector<std::reference_wrapper<const Shape>> shapeReferen
 { }
 
 
-point_t Vertical::getBoundingBox() const
-{
-	point_t result = {0.0, 0.0};
+// point_t Vertical::getBoundingBox() const
+// {
+// 	point_t result = {0.0, 0.0};
 
-	for (auto shapeReference : _shapeReferences)
-	{
-		// To use list of Shapes needed reference_wrapper<const Shape>
-		// which is dereferenced with get()
-		const Shape & shape = shapeReference.get();
+// 	for (auto shapeReference : _shapeReferences)
+// 	{
+// 		// To use list of Shapes needed reference_wrapper<const Shape>
+// 		// which is dereferenced with get()
+// 		const Shape & shape = shapeReference.get();
 
-		// To access other Shapes' protected getBoundingBox need
-		// to pass a ShapeKey to the public getBoundingBox
-		auto shapeBoundingBox = shape.getBoundingBox({});
+// 		// To access other Shapes' protected getBoundingBox need
+// 		// to pass a ShapeKey to the public getBoundingBox
+// 		auto shapeBoundingBox = shape.getBoundingBox({});
 
-		// Output the largest width
-		if (shapeBoundingBox.x > result.x)
-			result.x = shapeBoundingBox.x;
+// 		// Output the largest width
+// 		if (shapeBoundingBox.x > result.x)
+// 			result.x = shapeBoundingBox.x;
 
-		// Sum the heights
-		result.y += shapeBoundingBox.y;
-	}
+// 		// Sum the heights
+// 		result.y += shapeBoundingBox.y;
+// 	}
 
-	return result;
-}
+// 	return result;
+// }
 
-std::string Vertical::generatePostScript(point_t center) const
-{
-	auto height = getBoundingBox().y;
+// std::string Vertical::generatePostScript(point_t center) const
+// {
+// 	auto height = getBoundingBox().y;
 
-	std::string output;
+// 	std::string output;
 
-	auto x = center.x;
-	auto y = center.y - (height / 2.0);
+// 	auto x = center.x;
+// 	auto y = center.y - (height / 2.0);
 
-	for (auto shapeReference : _shapeReferences)
-	{
-		// To use list of Shapes needed reference_wrapper<const Shape>
-		// which is dereferenced with get()
-		const Shape & shape = shapeReference.get();
+// 	for (auto shapeReference : _shapeReferences)
+// 	{
+// 		// To use list of Shapes needed reference_wrapper<const Shape>
+// 		// which is dereferenced with get()
+// 		const Shape & shape = shapeReference.get();
 
-		// To access other Shapes' protected getBoundingBox need
-		// to pass a ShapeKey to the public getBoundingBox
-		auto shapeHeight = shape.getBoundingBox({}).y;
+// 		// To access other Shapes' protected getBoundingBox need
+// 		// to pass a ShapeKey to the public getBoundingBox
+// 		auto shapeHeight = shape.getBoundingBox({}).y;
 
-		y += shapeHeight / 2.0;
-		output += shape.generatePostScript({x, y}, {});
-		y += shapeHeight / 2.0;
-	}
+// 		y += shapeHeight / 2.0;
+// 		output += shape.generatePostScript({x, y}, {});
+// 		y += shapeHeight / 2.0;
+// 	}
 
-	return output;
-}
+// 	return output;
+// }
 
 
 // *********************************************************************
@@ -198,54 +239,54 @@ Horizontal::Horizontal(std::vector<std::reference_wrapper<const Shape>> shapeRef
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
-point_t Horizontal::getBoundingBox() const
-{
-	point_t result = {0.0, 0.0};
+// point_t Horizontal::getBoundingBox() const
+// {
+// 	point_t result = {0.0, 0.0};
 
-	for (auto shapeReference : _shapeReferences)
-	{
-		// To use list of Shapes needed reference_wrapper<const Shape>
-		// which is dereferenced with get()
-		const Shape & shape = shapeReference.get();
+// 	for (auto shapeReference : _shapeReferences)
+// 	{
+// 		// To use list of Shapes needed reference_wrapper<const Shape>
+// 		// which is dereferenced with get()
+// 		const Shape & shape = shapeReference.get();
 
-		// To access other Shapes' protected getBoundingBox need
-		// to pass a ShapeKey to the public getBoundingBox
-		auto shapeBoundingBox = shape.getBoundingBox({});
+// 		// To access other Shapes' protected getBoundingBox need
+// 		// to pass a ShapeKey to the public getBoundingBox
+// 		auto shapeBoundingBox = shape.getBoundingBox({});
 
-		// Sum the widths
-		result.x += shapeBoundingBox.x;
+// 		// Sum the widths
+// 		result.x += shapeBoundingBox.x;
 
-		// Output the largest height
-		if (shapeBoundingBox.y > result.y)
-			result.y = shapeBoundingBox.y;
-	}
+// 		// Output the largest height
+// 		if (shapeBoundingBox.y > result.y)
+// 			result.y = shapeBoundingBox.y;
+// 	}
 
-	return result;
-}
+// 	return result;
+// }
 
-std::string Horizontal::generatePostScript(point_t center) const
-{
-	auto width = getBoundingBox().x;
+// std::string Horizontal::generatePostScript(point_t center) const
+// {
+// 	auto width = getBoundingBox().x;
 
-	std::string output;
+// 	std::string output;
 
-	auto x = center.x - (width / 2.0);
-	auto y = center.y;
+// 	auto x = center.x - (width / 2.0);
+// 	auto y = center.y;
 
-	for (auto shapeReference : _shapeReferences)
-	{
-		// To use list of Shapes needed reference_wrapper<const Shape>
-		// which is dereferenced with get()
-		const Shape & shape = shapeReference.get();
+// 	for (auto shapeReference : _shapeReferences)
+// 	{
+// 		// To use list of Shapes needed reference_wrapper<const Shape>
+// 		// which is dereferenced with get()
+// 		const Shape & shape = shapeReference.get();
 
-		// To access other Shapes' protected getBoundingBox need
-		// to pass a ShapeKey to the public getBoundingBox
-		auto shapeWidth = shape.getBoundingBox({}).x;
+// 		// To access other Shapes' protected getBoundingBox need
+// 		// to pass a ShapeKey to the public getBoundingBox
+// 		auto shapeWidth = shape.getBoundingBox({}).x;
 
-		x += shapeWidth / 2.0;
-		output += shape.generatePostScript({x, y}, {});
-		x += shapeWidth / 2.0;
-	}
+// 		x += shapeWidth / 2.0;
+// 		output += shape.generatePostScript({x, y}, {});
+// 		x += shapeWidth / 2.0;
+// 	}
 
-	return output;
-}
+// 	return output;
+// }

@@ -69,13 +69,13 @@ protected:
 
 class Compound : public Shape{
 public:
-	explicit Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
+	//explicit Compound(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
 
 	virtual ~Compound() = default;
 
 protected:
-	virtual point_t getBoundingBox() const override;
-	virtual std::string generatePostScript(point_t center) const override;
+	point_t getBoundingBox() const override;
+	std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
@@ -93,9 +93,10 @@ public:
 
 	virtual ~Layered() = default;
 
+
 protected:
-	point_t getBoundingBox() const override;
-	std::string generatePostScript(point_t center) const;
+	//point_t getBoundingBox() const override;
+	//std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
@@ -112,8 +113,8 @@ public:
 	virtual ~Vertical() = default;
 
 protected:
-	point_t getBoundingBox() const;
-	std::string generatePostScript(point_t center) const;
+	//point_t getBoundingBox() const;
+	//std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
@@ -131,8 +132,8 @@ public:
 	virtual ~Horizontal() = default;
 
 protected:
-	point_t getBoundingBox() const;
-	std::string generatePostScript(point_t center) const;
+	//point_t getBoundingBox() const;
+	//std::string generatePostScript(point_t center) const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
