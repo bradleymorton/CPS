@@ -76,9 +76,13 @@ public:
 protected:
 	point_t getBoundingBox() const override;
 	std::string generatePostScript(point_t center) const;
+	virtual void 
+
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
+private:
+	int flag;
 
 };
 
