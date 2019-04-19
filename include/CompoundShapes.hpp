@@ -76,7 +76,7 @@ public:
 protected:
 	point_t getBoundingBox() const override;
 	std::string generatePostScript(point_t center) const;
-	virtual void 
+	virtual void adjust(double& toAdust)=0;
 
 
 protected:
