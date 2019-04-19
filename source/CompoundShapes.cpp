@@ -154,6 +154,9 @@ std::string Compound::generatePostScript(point_t center) const
 {
 	std::string output;
 
+	auto x = center.x;
+ 	auto y = center.y;
+
 	for (auto shapeReference : _shapeReferences)
 	{
 		// To use list of Shapes needed reference_wrapper<const Shape>
