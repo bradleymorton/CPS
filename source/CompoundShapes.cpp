@@ -81,6 +81,21 @@ Layered::Layered(std::vector<std::reference_wrapper<const Shape>> shapeReference
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
+void Layered::preAdjust(double height, double width, double & x, double & y)
+{
+	return;
+}
+
+void Layered::postAdjust(double height, double width, double & x, double & y)
+{
+	return;
+}
+
+void Layered::outOfLoopAdjust(double height, double width, double & x, double & y)
+{
+	return;
+}
+
 // point_t Layered::getBoundingBox() const
 // {
 // 	point_t result = {0.0, 0.0};
@@ -157,20 +172,40 @@ std::string Compound::generatePostScript(point_t center) const
 	auto x = center.x;
  	auto y = center.y;
 
+
+
 	for (auto shapeReference : _shapeReferences)
 	{
 		// To use list of Shapes needed reference_wrapper<const Shape>
 		// which is dereferenced with get()
 		const Shape & shape = shapeReference.get();
+		auto shapeHeight = shape.getBoundingBox({}).y;
+		auto shapeWidth = shape.getBoundingBox({}).x;
 
 		// To access other Shapes' protected getBoundingBox need
 		// to pass a ShapeKey to the public getBoundingBox
+		preAdjust(shapeHeight, shapeWidth, x, y);
 		output += shape.generatePostScript(center, {});
+		postAdjust(shapeHeight, shapeWidth, x, y);
 	}
 
 	return output;
 }
 
+void Compound::preAdjust(double height, double width, double & x, double & y)
+{
+	return;
+}
+
+void Compound::postAdjust(double height, double width, double & x, double & y)
+{
+	return;
+}
+
+void Compound::outOfLoopAdjust(double height, double width, double & x, double & y)
+{
+	return;
+}
 
 // *********************************************************************
 // Vertical Class
@@ -180,6 +215,23 @@ Vertical::Vertical(std::vector<std::reference_wrapper<const Shape>> shapeReferen
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
+void Vertical::preAdjust(double height, double width, double & x, double & y)
+{
+	y += height/2;
+	return;
+}
+
+void Vertical::postAdjust(double height, double width, double & x, double & y)
+{
+	y += height/2;
+	return;
+}
+
+void Vertical::outOfLoopAdjust(double height, double width, double & x, double & y)
+{
+	y -= height/2;
+	return;
+}
 
 // point_t Vertical::getBoundingBox() const
 // {
@@ -241,6 +293,25 @@ Vertical::Vertical(std::vector<std::reference_wrapper<const Shape>> shapeReferen
 Horizontal::Horizontal(std::vector<std::reference_wrapper<const Shape>> shapeReferences)
 	: _shapeReferences(std::move(shapeReferences))
 { }
+
+void Horizontal::preAdjust(double height, double width, double & x, double & y)
+{
+	x += width/2;
+	return;
+}
+
+void Horizontal::postAdjust(double height, double width, double & x, double & y)
+{
+	x += width/2;
+	return;
+}
+
+void Horizontal::outOfLoopAdjust(double height, double width, double & x, double & y)
+{
+
+	x -= width/2;
+	return;
+}
 
 // point_t Horizontal::getBoundingBox() const
 // {

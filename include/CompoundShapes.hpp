@@ -75,8 +75,10 @@ public:
 
 protected:
 	point_t getBoundingBox() const override;
-	std::string generatePostScript(point_t center) const;
-	virtual void adjust(double& toAdust)=0;
+	std::string generatePostScript(point_t center)const;
+	virtual void preAdjust(double height, double width, double & x, double & y);
+	virtual void postAdjust(double height, double width, double & x, double & y);
+	virtual void outOfLoopAdjust(double height, double width, double & x, double & y);
 
 
 protected:
@@ -97,6 +99,11 @@ public:
 
 	virtual ~Layered() = default;
 
+	void preAdjust(double height, double width, double & x, double & y) override;
+
+	void postAdjust(double height, double width, double & x, double & y)override;
+
+	void outOfLoopAdjust(double height, double width, double & x, double & y)override;
 
 protected:
 	//point_t getBoundingBox() const override;
@@ -116,6 +123,11 @@ public:
 
 	virtual ~Vertical() = default;
 
+	void preAdjust(double height, double width, double & x, double & y) override;
+
+	void postAdjust(double height, double width, double & x, double & y)override;
+
+	void outOfLoopAdjust(double height, double width, double & x, double & y)override;
 protected:
 	//point_t getBoundingBox() const;
 	//std::string generatePostScript(point_t center) const;
@@ -134,6 +146,12 @@ public:
 	explicit Horizontal(std::vector<std::reference_wrapper<const Shape>> shapeReferences);
 
 	virtual ~Horizontal() = default;
+
+	void preAdjust(double height, double width, double & x, double & y) override;
+
+	void postAdjust(double height, double width, double & x, double & y)override;
+
+	void outOfLoopAdjust(double height, double width, double & x, double & y)override;
 
 protected:
 	//point_t getBoundingBox() const;
