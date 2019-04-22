@@ -76,15 +76,14 @@ public:
 protected:
 	point_t getBoundingBox() const override;
 	std::string generatePostScript(point_t center)const;
-	virtual double adjustX(double width);
-	virtual double adjustY(double height);
-	virtual double outOfLoopAdjustX(double width);
-	virtual double outOfLoopAdjustY(double height);
+	virtual double adjustX(double width)const;
+	virtual double adjustY(double height)const;
+	virtual double outOfLoopAdjustX(double width)const;
+	virtual double outOfLoopAdjustY(double height)const;
 
 protected:
 	std::vector<std::reference_wrapper<const Shape>> _shapeReferences;
 private:
-	int flag;
 
 };
 
@@ -99,11 +98,11 @@ public:
 
 	virtual ~Layered() = default;
 
-	double adjustX(double width)override;
-	double adjustY(double height)override;
+	double adjustX(double width)const override;
+	double adjustY(double height)const override;
 
-	double outOfLoopAdjustX(double width)override;
-	double outOfLoopAdjustY(double height)override;
+	double outOfLoopAdjustX(double width)const override;
+	double outOfLoopAdjustY(double height)const override;
 
 protected:
 	//point_t getBoundingBox() const override;
@@ -123,11 +122,11 @@ public:
 
 	virtual ~Vertical() = default;
 
-	double adjustX(double width)override;
-	double adjustY(double height)override;
+	double adjustX(double width)const override;
+	double adjustY(double height)const override;
 
-	double outOfLoopAdjustX(double width)override;
-	double outOfLoopAdjustY(double height)override;
+	double outOfLoopAdjustX(double width)const override;
+	double outOfLoopAdjustY(double height)const override;
 protected:
 	//point_t getBoundingBox() const;
 	//std::string generatePostScript(point_t center) const;
@@ -147,11 +146,11 @@ public:
 
 	virtual ~Horizontal() = default;
 
-	double adjustX(double width)override;
-	double adjustY(double height)override;
+	double adjustX(double width)const override;
+	double adjustY(double height)const override;
 
-	double outOfLoopAdjustX(double width)override;
-	double outOfLoopAdjustY(double height)override;
+	double outOfLoopAdjustX(double width)const override;
+	double outOfLoopAdjustY(double height)const override;
 
 protected:
 	//point_t getBoundingBox() const;

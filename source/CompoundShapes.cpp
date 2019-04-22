@@ -81,22 +81,22 @@ Layered::Layered(std::vector<std::reference_wrapper<const Shape>> shapeReference
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
-double Layered::adjustX(double width)
+double Layered::adjustX(double width) const
 {
 	return 0.0;
 }
 
-double Layered::adjustY(double height)
+double Layered::adjustY(double height) const
 {
 	return 0.0;
 }
 
-double Layered::outOfLoopAdjustX(double width)
+double Layered::outOfLoopAdjustX(double width) const
 {
 	return 0.0;
 }
 
-double Layered::outOfLoopAdjustY(double height)
+double Layered::outOfLoopAdjustY(double height) const
 {
 	return 0.0;
 }
@@ -204,23 +204,23 @@ std::string Compound::generatePostScript(point_t center) const
 	return output;
 }
 
-double Compound::adjustX(double width)
+double Compound::adjustX(double width) const
 {
 	return 0.0;
 }
 
-double Compound::adjustY(double height)
+double Compound::adjustY(double height) const
 {
 	return 0.0;
 }
 
 
-double Compound::outOfLoopAdjustX(double width)
+double Compound::outOfLoopAdjustX(double width) const
 {
 	return 0.0;
 }
 
-double Compound::outOfLoopAdjustY(double height)
+double Compound::outOfLoopAdjustY(double height) const
 {
 	return 0.0;
 }
@@ -233,22 +233,22 @@ Vertical::Vertical(std::vector<std::reference_wrapper<const Shape>> shapeReferen
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
-double Vertical::adjustX(double width)
+double Vertical::adjustX(double width) const
 {
 	return 0.0;
 }
 
-double Vertical::adjustY(double height)
+double Vertical::adjustY(double height) const
 {
 	return height/2;
 }
 
-double Vertical::outOfLoopAdjustX(double width)
+double Vertical::outOfLoopAdjustX(double width) const
 {
 	return 0.0;
 }
 
-double Vertical::outOfLoopAdjustY(double height)
+double Vertical::outOfLoopAdjustY(double height) const
 {
 	return height/2;
 }
@@ -314,22 +314,22 @@ Horizontal::Horizontal(std::vector<std::reference_wrapper<const Shape>> shapeRef
 	: _shapeReferences(std::move(shapeReferences))
 { }
 
-double Horizontal::adjustX(double width)
+double Horizontal::adjustX(double width) const
 {
 	return width/2;
 }
 
-double Horizontal::adjustY(double height)
+double Horizontal::adjustY(double height) const
 {
 	return 0.0;
 }
 
-double Horizontal::outOfLoopAdjustX(double width)
+double Horizontal::outOfLoopAdjustX(double width) const
 {
 	return width/2;
 }
 
-double Horizontal::outOfLoopAdjustY(double height)
+double Horizontal::outOfLoopAdjustY(double height) const
 {
 	return 0.0;
 }
